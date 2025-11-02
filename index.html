@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Aisoraa — Coming Soon" />
+  <title>Aisoraa — Coming Soon</title>
+  <link rel="icon" href="/favicon.ico" />
+  <!-- Tailwind CDN (for quick prototype). For production build, compile Tailwind locally. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* small decorative animation for background */
+    .noise {
+      background-image: radial-gradient(circle at 20% 20%, rgba(99,102,241,0.06), transparent 10%),
+                        radial-gradient(circle at 80% 80%, rgba(16,185,129,0.05), transparent 10%);
+      animation: pulseBg 8s linear infinite;
+    }
+    @keyframes pulseBg {
+      0% { transform: scale(1); opacity: 1}
+      50% { transform: scale(1.02); opacity: 0.95}
+      100% { transform: scale(1); opacity: 1}
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 font-sans">
+  <main class="container mx-auto px-6 py-16 max-w-4xl">
+    <section class="relative rounded-2xl p-10 md:p-14 bg-gradient-to-b from-white/5 to-white/2 backdrop-blur noise shadow-2xl border border-white/5">
+      <!-- Header / Logo -->
+      <header class="flex items-center justify-between mb-8">
+        <a href="/" class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-2xl font-bold">A</div>
+          <div>
+            <h1 class="text-xl font-semibold">Aisoraa</h1>
+            <p class="text-xs text-white/60 -mt-1">Beautifully crafted — launching soon</p>
+          </div>
+        </a>
+        <nav class="hidden sm:flex gap-4 text-sm text-white/60">
+          <a href="#" class="hover:text-white">About</a>
+          <a href="#" class="hover:text-white">Contact</a>
+        </nav>
+      </header>
+
+      <!-- Hero -->
+      <div class="grid gap-8 md:grid-cols-2 items-center">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight">We&rsquo;re building something lovely for you.</h2>
+          <p class="mt-4 text-white/70">Aisoraa is coming soon. Subscribe for updates and be the first to know when we launch.</p>
+
+          <!-- Countdown -->
+          <div class="mt-6 inline-flex items-center gap-4 bg-white/3 p-4 rounded-lg">
+            <div class="text-center">
+              <div id="days" class="text-2xl font-bold">00</div>
+              <div class="text-xs text-white/60">Days</div>
+            </div>
+            <div class="text-center">
+              <div id="hours" class="text-2xl font-bold">00</div>
+              <div class="text-xs text-white/60">Hours</div>
+            </div>
+            <div class="text-center">
+              <div id="minutes" class="text-2xl font-bold">00</div>
+              <div class="text-xs text-white/60">Minutes</div>
+            </div>
+            <div class="text-center">
+              <div id="seconds" class="text-2xl font-bold">00</div>
+              <div class="text-xs text-white/60">Seconds</div>
+            </div>
+          </div>
+
+          <!-- Email subscribe -->
+          <form id="subscribeForm" class="mt-6 flex gap-3 max-w-md">
+            <label for="email" class="sr-only">Email</label>
+            <input id="email" type="email" placeholder="your@email.com" required
+                   class="flex-1 rounded-md px-4 py-2 bg-white/6 placeholder:text-white/50 outline-none focus:ring-2 focus:ring-indigo-500" />
+            <button type="submit" class="rounded-md px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium">Notify Me</button>
+          </form>
+
+          <p id="msg" class="mt-3 text-sm text-green-300"></p>
+
+          <!-- Social links -->
+          <div class="mt-6 flex gap-3 text-white/70">
+            <a href="#" aria-label="twitter" class="hover:text-white">Twitter</a>
+            <a href="#" aria-label="instagram" class="hover:text-white">Instagram</a>
+            <a href="#" aria-label="linkedin" class="hover:text-white">LinkedIn</a>
+          </div>
+        </div>
+
+        <!-- Right visual / illustration -->
+        <aside class="hidden md:flex items-center justify-center">
+          <div class="w-64 h-64 rounded-xl bg-gradient-to-tr from-indigo-600 to-emerald-500 flex items-center justify-center text-white text-center p-6 shadow-xl">
+            <div>
+              <p class="text-sm uppercase tracking-widest text-white/90">Coming soon</p>
+              <h3 class="mt-3 text-2xl font-bold">Aisoraa.com</h3>
+              <p class="mt-2 text-xs text-white/80">A modern experience for home & lifestyle.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Footer small -->
+      <footer class="mt-8 text-xs text-white/50 border-t border-white/5 pt-4 flex items-center justify-between">
+        <span>© <span id="year"></span> Aisoraa</span>
+       
+      </footer>
+    </section>
+  </main>
+
+  <!-- Script: countdown + simple email handling (no backend) -->
+  <script>
+    // Set launch date (Asia/Kolkata timezone awareness: use a local date string)
+    // Edit this date to your real launch date. Format: 'YYYY-MM-DDTHH:MM:SS'
+    const launchDate = new Date('2025-12-15T09:00:00+05:30');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = launchDate - now;
+      if (diff <= 0) {
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        return;
+      }
+      const s = Math.floor(diff / 1000) % 60;
+      const m = Math.floor(diff / (1000 * 60)) % 60;
+      const h = Math.floor(diff / (1000 * 60 * 60)) % 24;
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById('days').textContent = String(d).padStart(2, '0');
+      document.getElementById('hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // simple front-end email capture (no backend). Replace with API endpoint (Mailchimp/ConvertKit/your server)
+    document.getElementById('subscribeForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      if (!email) return;
+      // temporary UX: open user's mail client as a fallback
+      const msg = document.getElementById('msg');
+      msg.textContent = 'Thanks — we\'ll keep you posted!';
+      // clear input
+      document.getElementById('email').value = '';
+      setTimeout(()=> msg.textContent = '', 5000);
+      // TODO: replace with fetch() to your subscription API
+    });
+  </script>
+</body>
+</html>
