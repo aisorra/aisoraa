@@ -18,10 +18,39 @@ main {
   flex-direction: column;
   gap: 10px;
   padding: 100px 15px;
+  position: relative;
+}
+main::before {
+  content: "";
+  background-image: url("../images/bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+main::after {
+  content: "";
+  background-image: url("../images/noise-bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 0;
 }
 
 section {
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 section p {
@@ -54,20 +83,44 @@ section .input-field input {
   outline: none;
   padding: 37px 5px 37px 34px;
   background-color: transparent;
+  color: #fff;
+  border: 1px solid;
+  border-radius: 22px;
+}
+section .input-field input:placeholder-shown,
+section .input-field input::placeholder {
+  color: #fff;
 }
 
 section .input-field button {
   position: absolute;
-  right: 0;
+  right: 8px;
   background: radial-gradient(
     92.62% 277.86% at 50% 0%,
     #fe4d00 0%,
     #c70702 100%
   );
   border-radius: 20px;
-  padding: 10px;
+  padding: 22px 68px;
   font-size: 26px;
   color: #fff;
   outline: none;
   font-weight: 300;
+  border: none;
+  min-width: 234px;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.layer {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(50% 50% at 50% 50%, #fe4d00 0%, #c70702 100%);
+  backdrop-filter: blur(573px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
 }
