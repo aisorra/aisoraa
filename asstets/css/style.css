@@ -5,8 +5,13 @@
 }
 
 body {
-  background-color: #000;
+  background-color: #030406;
   color: #fff;
+  font-family: "Jura", sans-serif;
+}
+
+button {
+  cursor: pointer;
 }
 
 main {
@@ -17,51 +22,28 @@ main {
   justify-content: space-between;
   flex-direction: column;
   gap: 10px;
-  padding: 100px 15px;
+  padding: 4% 15px;
   position: relative;
-}
-main::before {
-  content: "";
-  background-image: url("../images/bg.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.1;
-}
-main::after {
-  content: "";
-  background-image: url("../images/noise-bg.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  z-index: 0;
 }
 
 section {
   text-align: center;
   position: relative;
-  z-index: 1;
+  z-index: 5;
 }
 
 section p {
   font-size: 30px;
   font-weight: 300;
-  margin-bottom: 50px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
 }
 
 section h1 {
   font-size: 85px;
   font-weight: 300;
+  margin-bottom: 40px;
+  letter-spacing: 6px;
 }
 
 section .input-field {
@@ -81,7 +63,7 @@ section .input-field input {
     rgba(255, 255, 255, 0) 106.92%
   );
   outline: none;
-  padding: 37px 5px 37px 34px;
+  padding: 26px 5px 26px 22px;
   background-color: transparent;
   color: #fff;
   border: 1px solid;
@@ -94,33 +76,85 @@ section .input-field input::placeholder {
 
 section .input-field button {
   position: absolute;
-  right: 8px;
+  right: 5px;
   background: radial-gradient(
     92.62% 277.86% at 50% 0%,
     #fe4d00 0%,
     #c70702 100%
   );
   border-radius: 20px;
-  padding: 22px 68px;
-  font-size: 26px;
+  padding: 15px 32px;
+  font-size: 21px;
   color: #fff;
   outline: none;
   font-weight: 300;
   border: none;
-  min-width: 234px;
+  min-width: 190px;
   text-align: center;
   top: 50%;
   transform: translateY(-50%);
 }
-
-.layer {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(50% 50% at 50% 50%, #fe4d00 0%, #c70702 100%);
-  backdrop-filter: blur(573px);
+.layer-0,
+.layer-1,
+.layer-2 {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.layer-0 img {
+  width: 100%;
+  height: 100%;
+}
+.layer-1 img {
+  max-width: 1570px;
+  width: 100%;
+  transition: transform 0.2s ease-out;
+}
+header,
+footer {
+  position: relative;
+  z-index: 5;
+}
+
+.layer-0 {
+  z-index: 0;
+}
+.layer-1 {
+  z-index: 1;
+}
+.layer-2 {
+  z-index: 2;
+}
+
+footer p {
+  font-family: "Inter", sans-serif;
+  font-weight: 200;
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 600px) {
+  section h1 {
+    font-size: 40px;
+  }
+
+  section p {
+    font-size: 14px;
+  }
+  section .input-field button {
+    position: static;
+    transform: none;
+    margin-top: 20px;
+  }
+  section .input-field input {
+    border-radius: 16px;
+  }
+  .layer-1 img {
+    transform: scale(3.5) !important;
+  }
 }
