@@ -9,6 +9,21 @@
       @import url("https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
     </style>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NZ2TMWKQ");
+    </script>
+    <!-- End Google Tag Manager -->
   </head>
   <body>
     <main>
@@ -150,6 +165,17 @@
       </footer>
     </main>
 
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NZ2TMWKQ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
     <script>
@@ -167,32 +193,30 @@
 
       // Email--js
 
+      (function () {
+        emailjs.init("b8bLCehoXiaD0jcId"); // replace with your EmailJS public key
+      })();
 
+      document.getElementById("notifyBtn").addEventListener("click", () => {
+        const email = document.getElementById("emailInput").value.trim();
+        if (!email) {
+          alert("Please enter your email!");
+          return;
+        }
 
-(function(){
-    emailjs.init("b8bLCehoXiaD0jcId"); // replace with your EmailJS public key
-  })();
-
-  document.getElementById("notifyBtn").addEventListener("click", () => {
-    const email = document.getElementById("emailInput").value.trim();
-    if (!email) {
-      alert("Please enter your email!");
-      return;
-    }
-
-    emailjs.send("service_c3aomk9", "template_kyosuk9", {
-      user_email: email
-    }).then(() => {
-      alert("Thank you! We'll notify you soon.");
-      document.getElementById("emailInput").value = "";
-    }).catch((error) => {
-      alert("Something went wrong. Please try again later.");
-      console.error(error);
-    });
-  });
-
-
-
+        emailjs
+          .send("service_c3aomk9", "template_kyosuk9", {
+            user_email: email,
+          })
+          .then(() => {
+            alert("Thank you! We'll notify you soon.");
+            document.getElementById("emailInput").value = "";
+          })
+          .catch((error) => {
+            alert("Something went wrong. Please try again later.");
+            console.error(error);
+          });
+      });
     </script>
   </body>
 </html>
